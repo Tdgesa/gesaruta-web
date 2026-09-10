@@ -43,7 +43,7 @@ jobs:
           SHA: ${{ github.sha }}
         run: |
           set -eu
-          tar --exclude=.git -czf "/tmp/gesaruta-web-${SHA}.tar.gz" .
+          tar --exclude=.git --exclude=./releases --exclude=./current -czf "/tmp/gesaruta-web-${SHA}.tar.gz" .
           ssh -p "${DEPLOY_PORT:-22}" "${DEPLOY_USER}@${DEPLOY_HOST}" "mkdir -p /home/pcos/opt/gesaruta-web/releases/${SHA}"
           scp -P "${DEPLOY_PORT:-22}" "/tmp/gesaruta-web-${SHA}.tar.gz" "${DEPLOY_USER}@${DEPLOY_HOST}:/tmp/gesaruta-web-${SHA}.tar.gz"
           ssh -p "${DEPLOY_PORT:-22}" "${DEPLOY_USER}@${DEPLOY_HOST}" "tar -xzf /tmp/gesaruta-web-${SHA}.tar.gz -C /home/pcos/opt/gesaruta-web/releases/${SHA} && ln -sfn /home/pcos/opt/gesaruta-web/releases/${SHA} /home/pcos/opt/gesaruta-web/current && rm -f /tmp/gesaruta-web-${SHA}.tar.gz && find /home/pcos/opt/gesaruta-web/releases -mindepth 1 -maxdepth 1 -type d | sort | head -n -3 | xargs -r rm -rf"
