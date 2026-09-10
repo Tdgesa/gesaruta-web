@@ -13,4 +13,4 @@ Sitio corporativo estático e independiente del proyecto DeCA. La página raíz 
 
 ## Despliegue
 
-Cada push a `main` se empaqueta como release inmutable con su SHA en `/home/pcos/opt/gesaruta-web/releases/<SHA>` y actualiza `/home/pcos/opt/gesaruta-web/current`. Caddy sirve exclusivamente ese enlace y redirige `/deca` y `/login` al servicio DeCA. Las rutas inexistentes no tienen fallback SPA, por lo que `/login` no puede devolver la aplicación.
+Vercel sirve el repositorio directamente desde su raíz y no ejecuta compilación. `vercel.json` redirige `/deca` y sus subrutas a `https://deca.gesaruta.com/deca` y `/login` a `https://deca.gesaruta.com`. No hay despliegue en VM, Caddy ni servidor de aplicación.

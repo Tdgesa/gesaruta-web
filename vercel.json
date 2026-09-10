@@ -1,0 +1,22 @@
+{
+  "buildCommand": null,
+  "outputDirectory": ".",
+  "cleanUrls": true,
+  "redirects": [
+    {
+      "source": "/deca",
+      "destination": "https://deca.gesaruta.com/deca",
+      "permanent": false
+    },
+    {
+      "source": "/deca/:path*",
+      "destination": "https://deca.gesaruta.com/deca/:path*",
+      "permanent": false
+    },
+    {
+      "source": "/login",
+      "destination": "https://deca.gesaruta.com",
+      "permanent": false
+    }
+  ]
+}
