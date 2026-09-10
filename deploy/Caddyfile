@@ -1,0 +1,10 @@
+gesaruta.com, www.gesaruta.com {
+	root * /home/pcos/opt/gesaruta-web/current
+
+	# Public marketing site is isolated from the DeCA application.
+	redir /deca https://deca.gesaruta.com/deca 301
+	redir /deca/* https://deca.gesaruta.com/deca 301
+	redir /login https://deca.gesaruta.com 302
+
+	file_server
+}
