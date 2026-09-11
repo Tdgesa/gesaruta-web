@@ -3,6 +3,14 @@
   const languageToggle = languageSelector.querySelector('.language-toggle');
   const languageMenu = languageSelector.querySelector('.language-menu');
   const languageOptions = [...languageMenu.querySelectorAll('button')];
+  const hideGoogleBanner = () => {
+    document.querySelectorAll('.goog-te-banner-frame').forEach((banner) => {
+      banner.style.setProperty('display', 'none', 'important');
+    });
+    document.body.style.setProperty('top', '0', 'important');
+  };
+  hideGoogleBanner();
+  new MutationObserver(hideGoogleBanner).observe(document.documentElement, { childList: true, subtree: true });
   const setLanguageOpen = (open) => {
     languageToggle.setAttribute('aria-expanded', String(open));
     languageMenu.hidden = !open;

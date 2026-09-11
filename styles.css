@@ -42,3 +42,4 @@
 @media(max-width:650px){.footer-brand-copy{padding-left:0;border-left:0}}
 #google_translate_element{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
 @media(max-width:650px){.documentation-grid{gap:26px}.deca-card{min-height:380px;margin-bottom:0}.documentation-copy{padding-top:0}}
+.goog-te-banner-frame.skiptranslate{display:none!important}body{top:0!important}.goog-te-balloon-frame{display:none!important}.goog-text-highlight{background:transparent!important;box-shadow:none!important}
