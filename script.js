@@ -83,12 +83,8 @@
 
   document.querySelectorAll('a[href]').forEach((link) => {
     const destination = new URL(link.href, window.location.href);
-    const isAnotherPage = destination.origin !== window.location.origin
-      || destination.pathname !== window.location.pathname
-      || destination.search !== window.location.search;
-    const isContactPage = destination.origin === window.location.origin
-      && destination.pathname === '/contacto/';
-    if (['http:', 'https:'].includes(destination.protocol) && isAnotherPage && !isContactPage) {
+    const isExternalPage = destination.origin !== window.location.origin;
+    if (['http:', 'https:'].includes(destination.protocol) && isExternalPage) {
       link.target = '_blank';
       link.rel = 'noopener noreferrer';
     }
