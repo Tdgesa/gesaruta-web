@@ -1,12 +1,62 @@
 (() => {
+  const languageSelector = document.querySelector('.language-selector');
+  const languageToggle = languageSelector.querySelector('.language-toggle');
+  const languageMenu = languageSelector.querySelector('.language-menu');
+  const languageOptions = [...languageMenu.querySelectorAll('button')];
+  const setLanguageOpen = (open) => {
+    languageToggle.setAttribute('aria-expanded', String(open));
+    languageMenu.hidden = !open;
+  };
+  const selectLanguage = (option) => {
+    const language = option.dataset.language;
+    languageOptions.forEach((item) => item.setAttribute('aria-pressed', String(item === option)));
+    languageToggle.querySelector('img').src = option.querySelector('img').getAttribute('src');
+    languageToggle.querySelector('.language-code').textContent = language.toUpperCase();
+    languageToggle.setAttribute('aria-label', `Seleccionar idioma: ${option.textContent.trim()}`);
+    // This preference is ready for a future translation layer; the document remains Spanish.
+    try { localStorage.setItem('gesaruta-language', language); } catch { /* Storage may be unavailable. */ }
+  };
+  try {
+    const savedOption = languageOptions.find((option) => option.dataset.language === localStorage.getItem('gesaruta-language'));
+    if (savedOption) selectLanguage(savedOption);
+  } catch { /* Keep the default language when storage is unavailable. */ }
+  languageToggle.addEventListener('click', () => setLanguageOpen(languageMenu.hidden));
+  languageOptions.forEach((option) => option.addEventListener('click', () => {
+    selectLanguage(option);
+    setLanguageOpen(false);
+    languageToggle.focus();
+  }));
+  languageSelector.addEventListener('keydown', (event) => {
+    if (event.key === 'Escape') {
+      setLanguageOpen(false);
+      languageToggle.focus();
+      event.preventDefault();
+    }
+    if (['ArrowDown', 'ArrowUp', 'Home', 'End'].includes(event.key)) {
+      event.preventDefault();
+      setLanguageOpen(true);
+      const current = languageOptions.indexOf(document.activeElement);
+      const next = event.key === 'Home' ? 0 : event.key === 'End' ? languageOptions.length - 1
+        : current < 0 ? (event.key === 'ArrowUp' ? languageOptions.length - 1 : 0)
+        : (current + (event.key === 'ArrowDown' ? 1 : -1) + languageOptions.length) % languageOptions.length;
+      languageOptions[next].focus();
+    }
+  });
+  document.addEventListener('click', (event) => {
+    if (!languageSelector.contains(event.target)) setLanguageOpen(false);
+  });
+  languageSelector.addEventListener('focusout', (event) => {
+    if (!languageSelector.contains(event.relatedTarget)) setLanguageOpen(false);
+  });
+
   const solutions = {
     gesatd: {
-      tone: 'blue', index: '01', label: 'Núcleo de datos', name: 'GESATD',
+      tone: 'orange', index: '01', label: 'Núcleo de datos', name: 'GESATD',
       description: 'El tacógrafo deja de ser un archivo que descargar y se convierte en información útil para decidir.',
       bullets: ['Descarga remota y custodia segura', 'Alertas antes de que llegue una sanción', 'Informes listos para tu equipo'],
     },
     gesalab: {
-      tone: 'orange', index: '02', label: 'Control laboral', name: 'GESALAB',
+      tone: 'terracotta', index: '02', label: 'Control laboral', name: 'GESALAB',
       description: 'Convierte los datos de conducción en jornadas claras, excesos detectados y decisiones laborales trazables.',
       bullets: ['Jornada diaria y excesos', 'Criterios según convenio', 'Informes para administración'],
     },
