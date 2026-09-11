@@ -81,6 +81,17 @@
     });
   });
 
+  document.querySelectorAll('a[href]').forEach((link) => {
+    const destination = new URL(link.href, window.location.href);
+    const isAnotherPage = destination.origin !== window.location.origin
+      || destination.pathname !== window.location.pathname
+      || destination.search !== window.location.search;
+    if (['http:', 'https:'].includes(destination.protocol) && isAnotherPage) {
+      link.target = '_blank';
+      link.rel = 'noopener noreferrer';
+    }
+  });
+
   const menuToggle = document.querySelector('.menu-toggle');
   const navigation = document.querySelector('.navigation');
   menuToggle.addEventListener('click', () => {

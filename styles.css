@@ -37,4 +37,4 @@
 .group-card-brand{display:flex;align-items:center;justify-content:space-between;gap:24px}.group-card-brand img{display:block;width:125px;max-width:calc(100% - 40px);height:auto;mix-blend-mode:multiply}.group-card-brand>span{color:var(--orange-dark);font-size:24px}.group-card:hover{border-color:var(--orange);box-shadow:0 6px 18px rgb(136 69 47 / 8%)}.group-card:focus-visible{outline:2px solid var(--orange);outline-offset:4px}
 .hero-visual{min-width:0;align-self:start}.hero-visual .group-card{margin:0 0 28px auto}
 @media(max-width:900px){.hero-visual .group-card{margin-bottom:28px}}
-.footer-brand>a{display:block;padding:8px 10px;background:var(--paper)}.footer-brand img{filter:none;opacity:1}
+.footer-brand>a{display:block}.footer-brand img{filter:none;opacity:1}
