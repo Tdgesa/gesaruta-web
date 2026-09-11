@@ -72,7 +72,10 @@
   document.querySelectorAll('.solution-tab').forEach((tab) => {
     tab.addEventListener('click', () => {
       const solution = solutions[tab.dataset.solution];
-      document.querySelectorAll('.solution-tab').forEach((item) => item.setAttribute('aria-selected', String(item === tab)));
+      document.querySelectorAll('.solution-tab').forEach((item) => {
+        const selected = item === tab;
+        item.setAttribute('aria-selected', String(selected));
+      });
       panel.className = `solution-feature feature-${solution.tone}`;
       panel.innerHTML = `<div class="feature-top"><span>CAPA / ${solution.index}</span><span class="feature-orbit" aria-hidden="true">◌</span></div><p class="overline">${solution.label}</p><h3>${solution.name}</h3><p class="feature-description">${solution.description}</p><ul>${solution.bullets.map((bullet) => `<li><span>+</span>${bullet}</li>`).join('')}</ul><a class="feature-link" href="${contact(solution.name)}">Solicitar propuesta <span aria-hidden="true">↗</span></a>`;
     });
