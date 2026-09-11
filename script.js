@@ -7,18 +7,37 @@
     languageToggle.setAttribute('aria-expanded', String(open));
     languageMenu.hidden = !open;
   };
-  const selectLanguage = (option) => {
+  const renderLanguage = (option) => {
     const language = option.dataset.language;
     languageOptions.forEach((item) => item.setAttribute('aria-pressed', String(item === option)));
     languageToggle.querySelector('img').src = option.querySelector('img').getAttribute('src');
     languageToggle.querySelector('.language-code').textContent = language.toUpperCase();
     languageToggle.setAttribute('aria-label', `Seleccionar idioma: ${option.textContent.trim()}`);
-    // This preference is ready for a future translation layer; the document remains Spanish.
+  };
+  const translatePage = (language) => {
+    if (language === 'es') {
+      document.cookie = 'googtrans=;path=/;max-age=0;SameSite=Lax';
+      window.location.reload();
+      return;
+    }
+    const translateSelect = document.querySelector('#google_translate_element select');
+    if (translateSelect) {
+      translateSelect.value = language;
+      translateSelect.dispatchEvent(new Event('change'));
+      return;
+    }
+    document.cookie = `googtrans=/es/${language};path=/;SameSite=Lax`;
+    window.location.reload();
+  };
+  const selectLanguage = (option) => {
+    const language = option.dataset.language;
+    renderLanguage(option);
     try { localStorage.setItem('gesaruta-language', language); } catch { /* Storage may be unavailable. */ }
+    translatePage(language);
   };
   try {
     const savedOption = languageOptions.find((option) => option.dataset.language === localStorage.getItem('gesaruta-language'));
-    if (savedOption) selectLanguage(savedOption);
+    if (savedOption) renderLanguage(savedOption);
   } catch { /* Keep the default language when storage is unavailable. */ }
   languageToggle.addEventListener('click', () => setLanguageOpen(languageMenu.hidden));
   languageOptions.forEach((option) => option.addEventListener('click', () => {
