@@ -191,6 +191,22 @@
     window.setInterval(updateCountdown, 1000);
   }
 
+  const cookieKey = 'gesaruta-cookie-consent';
+  if (!window.localStorage.getItem(cookieKey)) {
+    const cookieNotice = document.createElement('aside');
+    cookieNotice.className = 'cookie-notice';
+    cookieNotice.setAttribute('role', 'dialog');
+    cookieNotice.setAttribute('aria-labelledby', 'cookie-title');
+    cookieNotice.innerHTML = `<div><p class="overline">Privacidad y cookies</p><h2 id="cookie-title">Tu privacidad importa.</h2><p>Usamos cookies necesarias para que la web funcione correctamente. Puedes aceptar todas o continuar solo con las necesarias.</p><a href="/legal/#cookies">Consultar la política de cookies</a></div><div class="cookie-actions"><button class="button button-outline" type="button" data-cookie-choice="necessary">Solo necesarias</button><button class="button button-primary" type="button" data-cookie-choice="all">Aceptar todas</button></div>`;
+    document.body.append(cookieNotice);
+    cookieNotice.querySelectorAll('[data-cookie-choice]').forEach((button) => {
+      button.addEventListener('click', () => {
+        window.localStorage.setItem(cookieKey, button.dataset.cookieChoice);
+        cookieNotice.remove();
+      });
+    });
+  }
+
   const reveals = document.querySelectorAll('.reveal');
   if (!('IntersectionObserver' in window)) reveals.forEach((element) => element.classList.add('is-visible'));
   else {
