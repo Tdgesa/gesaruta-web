@@ -1,8 +1,8 @@
 (() => {
   const languageSelector = document.querySelector('.language-selector');
-  const languageToggle = languageSelector.querySelector('.language-toggle');
-  const languageMenu = languageSelector.querySelector('.language-menu');
-  const languageOptions = [...languageMenu.querySelectorAll('button')];
+  const languageToggle = languageSelector?.querySelector('.language-toggle');
+  const languageMenu = languageSelector?.querySelector('.language-menu');
+  const languageOptions = languageMenu ? [...languageMenu.querySelectorAll('button')] : [];
   const originalTexts = new Map();
   const originalTitle = document.title;
   let currentLanguage = 'es';
@@ -71,41 +71,43 @@
     try { localStorage.setItem('gesaruta-language', language); } catch { /* Storage may be unavailable. */ }
     translatePage(language);
   };
-  try {
-    const savedOption = languageOptions.find((option) => option.dataset.language === localStorage.getItem('gesaruta-language'));
-    if (savedOption) {
-      renderLanguage(savedOption);
-      if (savedOption.dataset.language !== 'es') translatePage(savedOption.dataset.language);
-    }
-  } catch { /* Keep the default language when storage is unavailable. */ }
-  languageToggle.addEventListener('click', () => setLanguageOpen(languageMenu.hidden));
-  languageOptions.forEach((option) => option.addEventListener('click', () => {
-    selectLanguage(option);
-    setLanguageOpen(false);
-    languageToggle.focus();
-  }));
-  languageSelector.addEventListener('keydown', (event) => {
-    if (event.key === 'Escape') {
+  if (languageSelector && languageToggle && languageMenu) {
+    try {
+      const savedOption = languageOptions.find((option) => option.dataset.language === localStorage.getItem('gesaruta-language'));
+      if (savedOption) {
+        renderLanguage(savedOption);
+        if (savedOption.dataset.language !== 'es') translatePage(savedOption.dataset.language);
+      }
+    } catch { /* Keep the default language when storage is unavailable. */ }
+    languageToggle.addEventListener('click', () => setLanguageOpen(languageMenu.hidden));
+    languageOptions.forEach((option) => option.addEventListener('click', () => {
+      selectLanguage(option);
       setLanguageOpen(false);
       languageToggle.focus();
-      event.preventDefault();
-    }
-    if (['ArrowDown', 'ArrowUp', 'Home', 'End'].includes(event.key)) {
-      event.preventDefault();
-      setLanguageOpen(true);
-      const current = languageOptions.indexOf(document.activeElement);
-      const next = event.key === 'Home' ? 0 : event.key === 'End' ? languageOptions.length - 1
-        : current < 0 ? (event.key === 'ArrowUp' ? languageOptions.length - 1 : 0)
-        : (current + (event.key === 'ArrowDown' ? 1 : -1) + languageOptions.length) % languageOptions.length;
-      languageOptions[next].focus();
-    }
-  });
-  document.addEventListener('click', (event) => {
-    if (!languageSelector.contains(event.target)) setLanguageOpen(false);
-  });
-  languageSelector.addEventListener('focusout', (event) => {
-    if (!languageSelector.contains(event.relatedTarget)) setLanguageOpen(false);
-  });
+    }));
+    languageSelector.addEventListener('keydown', (event) => {
+      if (event.key === 'Escape') {
+        setLanguageOpen(false);
+        languageToggle.focus();
+        event.preventDefault();
+      }
+      if (['ArrowDown', 'ArrowUp', 'Home', 'End'].includes(event.key)) {
+        event.preventDefault();
+        setLanguageOpen(true);
+        const current = languageOptions.indexOf(document.activeElement);
+        const next = event.key === 'Home' ? 0 : event.key === 'End' ? languageOptions.length - 1
+          : current < 0 ? (event.key === 'ArrowUp' ? languageOptions.length - 1 : 0)
+          : (current + (event.key === 'ArrowDown' ? 1 : -1) + languageOptions.length) % languageOptions.length;
+        languageOptions[next].focus();
+      }
+    });
+    document.addEventListener('click', (event) => {
+      if (!languageSelector.contains(event.target)) setLanguageOpen(false);
+    });
+    languageSelector.addEventListener('focusout', (event) => {
+      if (!languageSelector.contains(event.relatedTarget)) setLanguageOpen(false);
+    });
+  }
 
   const solutions = {
     gesatd: {
@@ -151,13 +153,13 @@
 
   const menuToggle = document.querySelector('.menu-toggle');
   const navigation = document.querySelector('.navigation');
-  menuToggle.addEventListener('click', () => {
+  if (menuToggle && navigation) menuToggle.addEventListener('click', () => {
     const open = menuToggle.getAttribute('aria-expanded') === 'true';
     menuToggle.setAttribute('aria-expanded', String(!open));
     menuToggle.classList.toggle('is-open', !open);
     navigation.classList.toggle('is-open', !open);
   });
-  navigation.querySelectorAll('a').forEach((link) => link.addEventListener('click', () => {
+  if (menuToggle && navigation) navigation.querySelectorAll('a').forEach((link) => link.addEventListener('click', () => {
     menuToggle.setAttribute('aria-expanded', 'false');
     menuToggle.classList.remove('is-open');
     navigation.classList.remove('is-open');
