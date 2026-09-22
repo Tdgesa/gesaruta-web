@@ -165,6 +165,32 @@
     navigation.classList.remove('is-open');
   }));
 
+  const countdownDays = document.querySelector('#countdown-days');
+  if (countdownDays) {
+    const countdownTarget = new Date('2026-10-05T00:00:00+02:00').getTime();
+    const spainTime = document.querySelector('#spain-time');
+    const spainClock = new Intl.DateTimeFormat('es-ES', {
+      timeZone: 'Europe/Madrid', hour: '2-digit', minute: '2-digit', second: '2-digit', hourCycle: 'h23',
+    });
+    const number = (value) => String(value).padStart(2, '0');
+    const updateCountdown = () => {
+      let remaining = Math.max(0, countdownTarget - Date.now());
+      const days = Math.floor(remaining / 86400000);
+      remaining %= 86400000;
+      const hours = Math.floor(remaining / 3600000);
+      remaining %= 3600000;
+      const minutes = Math.floor(remaining / 60000);
+      const seconds = Math.floor((remaining % 60000) / 1000);
+      countdownDays.textContent = String(days);
+      document.querySelector('#countdown-hours').textContent = number(hours);
+      document.querySelector('#countdown-minutes').textContent = number(minutes);
+      document.querySelector('#countdown-seconds').textContent = number(seconds);
+      spainTime.textContent = `Hora en España · ${spainClock.format(new Date())}`;
+    };
+    updateCountdown();
+    window.setInterval(updateCountdown, 1000);
+  }
+
   const reveals = document.querySelectorAll('.reveal');
   if (!('IntersectionObserver' in window)) reveals.forEach((element) => element.classList.add('is-visible'));
   else {
