@@ -1,8 +1,20 @@
 (() => {
   const form = document.querySelector('#contact-form');
   const status = document.querySelector('#form-status');
+  const legalConsent = document.querySelector('#contact-legal-consent');
+  const privacyDetails = document.querySelector('.privacy-details');
+  if (privacyDetails) {
+    privacyDetails.addEventListener('toggle', () => {
+      privacyDetails.querySelector('summary').textContent = privacyDetails.open ? 'Mostrar menos' : 'Ver más';
+    });
+  }
   form.addEventListener('submit', (event) => {
     event.preventDefault();
+    if (!legalConsent.checked) {
+      status.textContent = 'Debes aceptar las condiciones legales para enviar tu consulta.';
+      legalConsent.focus();
+      return;
+    }
     if (!form.reportValidity()) return;
     const values = new FormData(form);
     const name = values.get('name').trim();

@@ -70,6 +70,21 @@
         <div class="form-field"><label for="contact-message">Mensaje *</label><textarea id="contact-message" name="message" rows="4" maxlength="1500" placeholder="Cuéntanos cómo podemos ayudarte…" required></textarea></div>
       </div>
       <p class="form-delivery-note" id="delivery-note">Se abrirá tu aplicación de correo con el mensaje preparado para que puedas revisarlo y enviarlo.</p>
+      <div class="form-consent">
+        <label class="consent-checkbox" for="contact-legal-consent"><input id="contact-legal-consent" name="legal-consent" type="checkbox" required><span>He leído y acepto el <a href="/legal/#aviso-legal">Aviso legal</a>, los <a href="/legal/#terminos">Términos y condiciones</a>, la <a href="/legal/#cookies">Política de Cookies</a> y la <a href="/legal/#privacidad">Política de Privacidad</a> del presente sitio web y consiento el tratamiento de mis datos personales para la gestión de las comunicaciones informativas con GESARUTA.</span></label>
+        <details class="privacy-details">
+          <summary>Ver más</summary>
+          <div>
+            <p><strong>Información básica sobre protección de datos.</strong></p>
+            <p><strong>Responsable del tratamiento:</strong> GESARUTA, S.L.U. Puedes consultar más información en nuestro <a href="/legal/#aviso-legal">Aviso legal</a>.</p>
+            <p><strong>Finalidad del tratamiento:</strong> Gestión de las consultas y comunicaciones realizadas a través del sitio web.</p>
+            <p><strong>Legitimación para el tratamiento de sus datos personales:</strong> Consentimiento del interesado.</p>
+            <p><strong>Destinatarios:</strong> Pueden realizarse comunicaciones a terceros de los datos personales de los usuarios, previa solicitud de su consentimiento expreso para ello, salvo obligación legal o ejecución de contratos.</p>
+            <p><strong>Derechos:</strong> Puede ejercer los derechos de acceso, rectificación, supresión, limitación del tratamiento, portabilidad, oposición y a no ser objeto de decisiones automatizadas, incluyendo la elaboración de perfiles.</p>
+            <p><strong>Más información:</strong> Puedes obtener más información sobre el tratamiento de datos personales en nuestro <a href="/legal/#aviso-legal">Aviso legal</a>, nuestra <a href="/legal/#privacidad">Política de Privacidad</a>, nuestra <a href="/legal/#cookies">Política de Cookies</a> y en los <a href="/legal/#terminos">Términos y condiciones</a> del presente sitio web.</p>
+          </div>
+        </details>
+      </div>
       <button class="button button-primary contact-submit" type="submit" aria-describedby="delivery-note">Enviar mensaje <span aria-hidden="true">↗</span></button>
       <p class="form-status" id="form-status" role="status"></p>
       <noscript><p>Puedes escribirnos directamente a <a href="mailto:atencionalcliente@gesagrupo.com">atencionalcliente@gesagrupo.com</a>.</p></noscript>
@@ -137,4 +152,4 @@
         <p class="footer-legal">© 2026 Gesa Grupo · GESARUTA · Tecnología para el transporte que no se detiene.</p>
       </div>
     </footer>
-<script src="/script.js?v=translate-direct-1" defer></script><script src="/contacto/contacto.js" defer></script></body></html>
+<script src="/script.js?v=translate-direct-1" defer></script><script src="/contacto/contacto.js?v=consent-required-1" defer></script></body></html>
