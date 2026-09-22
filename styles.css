@@ -41,3 +41,5 @@
 .footer-brand-copy{padding-left:18px;border-left:1px solid rgba(247,242,234,.2)}.footer-brand p{padding-left:0;border-left:0}.footer-brand address{margin-top:14px;color:#bdb0a2;font:10px/1.55 IBMPlexMono,monospace;font-style:normal}.footer-brand address span{display:block;margin-bottom:4px;color:#e78a59;font-size:9px;letter-spacing:.08em}
 @media(max-width:650px){.footer-brand-copy{padding-left:0;border-left:0}}
 @media(max-width:650px){.documentation-grid{gap:26px}.deca-card{min-height:380px;margin-bottom:0}.documentation-copy{padding-top:0}}
+
+.nav-support{border-color:var(--orange-dark);background:var(--orange);color:#fffaf3!important}.nav-support:hover{border-color:var(--orange-dark);background:var(--orange-dark);color:#fffaf3!important}
